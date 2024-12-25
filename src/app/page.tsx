@@ -312,7 +312,7 @@ export default function Home() {
         szDiv.removeEventListener("scroll",handleSizeScroll)
       }
     }
-},[activeCollectionNo, handleScroll, bandSelectNoFace, handleCaseScroll, caseSelect, handleSizeScroll] )
+},[selected] )
   
 const saveClick=()=>{
   console.log("save",getActiveButton())
