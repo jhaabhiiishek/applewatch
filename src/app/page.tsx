@@ -2,9 +2,10 @@
 
 'use client'
 import Image from "next/image";
-import {useState, useRef, useEffect} from 'react';
+import {useState, useRef, useEffect, Suspense} from 'react';
 import {bandsS10,faceDataS10,faceDataHS10,bandsHS10,faceDataSE} from './bandChoices'
 import ImageDiv from './imageDiv'
+import Loading from "./loading";
 
 export default function Home() {
   const [bands, setbandset] = useState(bandsS10);
@@ -881,17 +882,20 @@ const sizeSelectSnap=(e:any)=>{
           />
         </div>
         {(selected===2)&&(
-          <div ref={bandCar} className="whitespace-nowrap scroll-smooth overflow-x-scroll noscrollbar w-screen overflow-y-hidden absolute left-0 top-0 mt-16 snap-x snap-mandatory" style={{paddingInlineStart:"calc(50vw - 156px)",paddingInlineEnd:"calc(50vw - 156px)"}}>
-              {bands.map((band,index)=>{
-                return(
-                  <button onClick={()=>bandSelectSnap(index)} data-key={index} key={index} className="inline-block w-[312px] text-center whitespace-normal overflow-hidden bg-none snap-center cursor-pointer">
-                    <ImageDiv key={index} src={band.src}/>
-                  </button>
-                )
-              })}
-          </div>
+          <Suspense fallback={<Loading/>}>
+            <div ref={bandCar} className="whitespace-nowrap scroll-smooth overflow-x-scroll noscrollbar w-screen overflow-y-hidden absolute left-0 top-0 mt-16 snap-x snap-mandatory" style={{paddingInlineStart:"calc(50vw - 156px)",paddingInlineEnd:"calc(50vw - 156px)"}}>
+                {bands.map((band,index)=>{
+                  return(
+                    <button onClick={()=>bandSelectSnap(index)} data-key={index} key={index} className="inline-block w-[312px] text-center whitespace-normal overflow-hidden bg-none snap-center cursor-pointer">
+                      <ImageDiv key={index} src={band.src}/>
+                    </button>
+                  )
+                })}
+            </div>
+          </Suspense>
         )}
         {(selected===1)&&(
+          <Suspense fallback={<Loading/>}>
           <div ref={caseCar} className="whitespace-nowrap scroll-smooth overflow-x-scroll noscrollbar w-screen overflow-y-hidden absolute left-0 top-0 mt-16 snap-x snap-mandatory" style={{paddingInlineStart:"calc(50vw - 156px)",paddingInlineEnd:"calc(50vw - 156px)",zIndex:"50"}}>
               {faceData.map((face,index)=>{
                 return(
@@ -901,8 +905,10 @@ const sizeSelectSnap=(e:any)=>{
                 )
               })}
           </div>
+          </Suspense>
         )}
         {(selected===3)&&(
+          <Suspense fallback={<Loading/>}>
           <div ref={szCar} className="whitespace-nowrap scroll-smooth overflow-x-scroll noscrollbar w-screen overflow-y-hidden absolute left-0 top-0 mt-16 snap-x snap-mandatory" style={{paddingInlineStart:"calc(50vw - 156px)",paddingInlineEnd:"calc(50vw - 156px)"}}>
             <button onClick={()=>sizeSelectSnap(0)} data-key={0} className="inline-block w-[312px] text-center whitespace-normal overflow-hidden bg-none snap-center cursor-pointer">
               <ImageDiv src={src} face={face}/>
@@ -911,6 +917,7 @@ const sizeSelectSnap=(e:any)=>{
               <ImageDiv src={src} face={face}/>
             </button>
           </div>
+          </Suspense>
         )}
 
       </div>
