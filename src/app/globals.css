@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; 
+  /* overflow-x: hidden; */
+}
+:root::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+.noscrollbar{
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; 
+}
+.noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family:  -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  /* letter-spacing: -.022em; */
+  overflow-x: hidden;
+  line-height: 1.4705882353;
+   /* Firefox */
+}
+
+.herotext{
+  display: block;
+  font-size: 62px;
+  line-height: 1.0625;
+  letter-spacing: -.009em;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.getS{
+  font-size: 14px;
+  font-weight: 400;
+  /* letter-spacing: -.022em; */
+  line-height: 1.1764805882;
+}
+
+.hero-img-container{
+  max-height: 29.8823529412rem;
+  min-height: 18.4705882353rem;
+  transform: translateY(12rem) scale(2);
+  margin: 0 auto;
+  position: relative;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.scroll-img-container{
+  max-height: 29.8823529412rem;
+  min-height: 18.4705882353rem;
+  margin: 0 auto;
+  position: relative;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.scroll-img{
+  max-height: 29.8823529412rem;
+  min-height: 18.4705882353rem;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.boldsm-statement{
+  letter-spacing: -0,16em;
+  line-height: 1.4285914286;
+  font-weight: 600;
+}
+
+.background-div {
+  position: absolute;
+  margin-top: 4rem;
+  height: 53vh; /* Same height as the container */
+  overflow-x: scroll; /* Enable horizontal scrolling */
+  z-index: -9999; /* Place it behind */
+}
+
+.innercont{
+  padding-inline-start: calc(50vw-156px);
+}
+
+@media screen and (max-width: 1080px) { 
+  .hero-img-container{
+    transform: translateY(26rem) scale(2);
+  }
+}
