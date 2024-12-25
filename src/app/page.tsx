@@ -1,10 +1,10 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 'use client'
 import Image from "next/image";
-import {useState, useRef, act, useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import {useState, useRef, useEffect} from 'react';
 import {bandsS10,faceDataS10,faceDataHS10,bandsHS10,faceDataSE} from './bandChoices'
 import ImageDiv from './imageDiv'
-import { createRoot } from "react-dom/client";
 
 export default function Home() {
   const [bands, setbandset] = useState(bandsS10);
@@ -16,11 +16,11 @@ export default function Home() {
   const [caseNo, setCaseNo] = useState(2);
   const [activeCollectionName, setAtiveCollectionName] = useState("Apple Watch Series 10");
   const [activeCollectionNo, setAtiveCollectionNo] = useState(0);
-  const [szNo, setSzNo] = useState(1);
+  // const [szNo, setSzNo] = useState(1);
   const [bandname, setBandName] = useState("Black Solo Loop");
   const [casename, setCaseName] = useState("Jet Black Aluminum Case");
   const [sizename, setSizeName] = useState("46mm");
-  const [faceNo, setFaceNo] = useState(0);
+  // const [faceNo, setFaceNo] = useState(0);
   const [face, setFace] = useState("https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/watch-case-46-aluminum-jetblack-nc-s10_VW_PF+watch-face-46-aluminum-jetblack-s10_VW_PF?wid=1000&hei=1000&fmt=png-alpha&.v=ZkpvU2VZQXB3RnNRVENEZS9Wb2Y3NkVmS05vWHBxQ1hNMzNlZ1l5V3RQRm0xR2lBNEhDZ3RrRjNEOTloOGpFekM4bU8yL1REVmF4VUkrMW5QRGtKeWZZdXM3S3c2TnF5czBINnVYaTd4cVVFV3ZkVVErQ2lxQjUvY3lWaGtLb0N0ellxUDB4dVliN1NPTHhYUld4M0p5am05N0NVWnlUTTNBaW9WT3lDS2lvbmYzRTFGU1cyNFdtdUoxcXBXVFAv");
   const [side, setSide] = useState("https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MYA33ref_FV99_VW_34FR+watch-case-46-aluminum-jetblack-nc-s10_VW_34FR+watch-face-46-aluminum-jetblack-s10_VW_34FR?wid=1000&hei=1000&fmt=p-jpg&qlt=95&.v=S01mb3pHMHA2MzFpM1RZVVFGV0dVRW5TeWJ6QW43NUFnQ2V4cmRFc1VnYUdWejZ5THhpKzJwRmRDYlhxN2o5aXB2QjR6TEZ4ZThxM3VqYkZobmlXM3RGNnlaeXQ4NGFKQTAzc0NGeHR2aVk0VEhOZEFKYmY1ZHNpalQ3YVhOWk9WVlBjZVFuazArV21YaFcvTVJ5dzRuUWsvSndwZkZQSHB4L3lvZ1B2V3ZCbWtNN0I0OEtHSU9TYzk0a1F1ZzFERlNXbWdiWWFMSHpqd3BBNUoxU1YzdG5TRTFsUDY4WC9xSGhtcnppYkpsMA");
   const [src, setSrc] = useState("https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MYA33ref_SR_S10_VW_PF?wid=1000&hei=1000&fmt=p-jpg&qlt=95&.v=czdWc1FNWHZRRGZrVTlpcjVQTEJxVHVkcStXUmxwTmtpV2dxUWV1ZU5xeXkvYVhHUzZnbTdlRlQ4aGhRUUYyVXZ6RVMwQXJHUjF3MlcvZ3RFeXhMRDVzaDNYQm9FT2pIMkdXYzlEUEliVWM");
@@ -46,12 +46,10 @@ export default function Home() {
   const szBtn = useRef<HTMLButtonElement>(null);
   const caseBtn = useRef<HTMLButtonElement>(null);
   const bandBtn = useRef<HTMLButtonElement>(null);
-  const btn42mm = useRef<HTMLButtonElement>(null);
-  const btn46mm = useRef<HTMLButtonElement>(null);
   const displayMenu = useRef<HTMLDivElement>(null);
   const parentHov = useRef<HTMLDivElement>(null);
   const imgParentDiv = useRef<HTMLDivElement>(null);
-
+  
   
   const handleClickOutside = (event:any) => {
     if (displayMenu.current && parentHov.current && !displayMenu.current.contains(event.target)) {
@@ -67,11 +65,11 @@ export default function Home() {
       hov.style.zIndex="-9999";
     }
   };
-
-
+  
+  
   const handleScroll = ()=>{
     setTimeout(()=>{
-      let ans = getActiveButton()?.getAttribute("data-key")
+      const ans = getActiveButton()?.getAttribute("data-key")
       if(bandNo.toString()!==ans){
         bandSelect(ans)
       }
@@ -79,7 +77,7 @@ export default function Home() {
   }
   const handleCaseScroll = ()=>{
     setTimeout(()=>{
-      let ans = getActiveButton()?.getAttribute("data-key")
+      const ans = getActiveButton()?.getAttribute("data-key")
       if(caseNo.toString()!==ans){
         caseSelect(ans)
       }
@@ -87,12 +85,13 @@ export default function Home() {
   }
   const handleSizeScroll = ()=>{
     setTimeout(()=>{
-      let ans = getActiveButton()?.getAttribute("data-key")
+      const ans = getActiveButton()?.getAttribute("data-key")
       szSelect(ans)
     },500)
   }
-
+  
   const handleTypeChange = (e:any)=>{
+    console.log(typeof e)
     if(sel0.current && sel1.current && sel2.current){
       const s0 = sel0.current
       const s1 = sel1.current
@@ -132,17 +131,12 @@ export default function Home() {
       }
     }
   }
-
-  const handsizeInClick = (typeStr:string)=>{
-    console.log("gre ", typeStr)
-  }
-
   
   const anCloseSize = ()=>{
     if(szBtn.current &&imgParentDiv.current){
       const szbtndiv = szBtn.current;
       setTimeout(() => {
-        let currw = szbtndiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szbtndiv.animate(
           [
             { width: `${currw}px`},
@@ -156,7 +150,7 @@ export default function Home() {
       }, 200);
     }
   }
-
+  
   const clickSizeActions = ()=>{
     if(isSzAnimated===true)return;
     if(selected===1){
@@ -172,7 +166,7 @@ export default function Home() {
       imgband.current.style.display="none"
       szDiv.innerText="Size"
       setTimeout(() => {
-        let currw = szbtndiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szbtndiv.animate(
           [
             { width:`${currw}px` },
@@ -188,7 +182,7 @@ export default function Home() {
     }
   }
 
-
+  
   const clickBandActions = ()=>{
     if(selected===3){
       anCloseSize()
@@ -200,8 +194,8 @@ export default function Home() {
       const szDiv = bandRef.current;
       const szbtndiv = bandBtn.current;
       setTimeout(() => {
-        let szprW = szDiv.getBoundingClientRect().width
-        let currw = szbtndiv.getBoundingClientRect().width
+        const szprW = szDiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szbtndiv.animate(
           [
             { width:`${szprW}px` },
@@ -220,11 +214,33 @@ export default function Home() {
     }
   }
   
+  const bandSelectNoFace=(e:any)=>{
+    if (e && bandCar.current) {
+      const carousel = bandCar.current
+      const buttons = Array.from(carousel.children);
+      buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      const bandName = bands[e].id.split("-").join(" ")
+      setBandName(bandName)
+      // setBandName()
+    }
+  }
+  const caseSelect=(e:any)=>{
+    if (e && caseCar.current) {
+      const caseName = faceData[e].id.split("-").join(" ")
+      setCaseName(caseName)
+      // buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      if(faceData[e].face){
+        setFace(faceData[e].face)
+      }else if(faceData[0].face){
+        setFace(faceData[0].face)
+      }
+    }
+  }
   const anCloseBand = ()=>{
     if(bandBtn.current &&imgband.current){
       const szbtndiv = bandBtn.current;
       setTimeout(() => {
-        let currw = szbtndiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szbtndiv.animate(
           [
             { width: `${currw+((0.135)*currw)}px`},
@@ -268,7 +284,6 @@ export default function Home() {
     const caseDiv = caseCar.current
     if(caseDiv &&caseCar.current){
       if(activeCollectionNo===0){
-        setFaceNo(2)
         caseSelect(2)
         setCaseNo(2)
         const carousel = caseCar.current
@@ -276,7 +291,6 @@ export default function Home() {
         buttons[2].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
       }else if(activeCollectionNo===1 && imgband.current){
         imgband.current.style.display="block"
-        setFaceNo(0)
         caseSelect(0)
         setCaseNo(0)
       }else if(activeCollectionNo===2){
@@ -290,7 +304,6 @@ export default function Home() {
     const szDiv = szCar.current
     if(szDiv &&szCar.current){
       szSelect(1)
-      setSzNo(1)
       const carousel =szCar.current
       const buttons = Array.from(carousel.children);
       buttons[1].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
@@ -299,7 +312,7 @@ export default function Home() {
         szDiv.removeEventListener("scroll",handleSizeScroll)
       }
     }
-},[selected])
+},[activeCollectionNo, handleScroll, bandSelectNoFace, handleCaseScroll, caseSelect, handleSizeScroll] )
   
 const saveClick=()=>{
   console.log("save",getActiveButton())
@@ -363,9 +376,7 @@ const getActiveButton=():HTMLDivElement|null=> {
 }
 const bandSelect=(e:any)=>{
   if (e && bandCar.current) {
-    const carousel = bandCar.current
-    const buttons = Array.from(carousel.children);
-    let bandName = bands[e].id.split("-").join(" ")
+    const bandName = bands[e].id.split("-").join(" ")
     setBandName(bandName)
     // buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     if(bands[e].face){
@@ -379,39 +390,15 @@ const bandSelect=(e:any)=>{
     }
   }
 }
-const bandSelectNoFace=(e:any)=>{
-  if (e && bandCar.current) {
-    const carousel = bandCar.current
-    const buttons = Array.from(carousel.children);
-    buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-    let bandName = bands[e].id.split("-").join(" ")
-    setBandName(bandName)
-    // setBandName()
-  }
-}
-const caseSelect=(e:any)=>{
-  if (e && caseCar.current) {
-    const carousel = caseCar.current
-    const buttons = Array.from(carousel.children);
-    let caseName = faceData[e].id.split("-").join(" ")
-    setCaseName(caseName)
-    // buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-    if(faceData[e].face){
-      setFace(faceData[e].face)
-    }else if(faceData[0].face){
-      setFace(faceData[0].face)
-    }
-  }
-}
 const szSelect=(e:any)=>{
   if (e && szCar.current) {
     console.log(e,typeof e)
     if(e==0){
       setSizeName("42mm")
-      setSzNo(0)
+      // setSzNo(0)
     }else if(e==1){
       setSizeName("46mm")
-      setSzNo(1)
+      // setSzNo(1)
     }
   }
 }
@@ -425,7 +412,7 @@ const bandSelectSnap=(e:any)=>{
     const carousel = bandCar.current
     const buttons = Array.from(carousel.children);
     buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-    let bandName = bands[e].id.split("-").join(" ")
+    const bandName = bands[e].id.split("-").join(" ")
     setBandName(bandName)
     if(bands[e].face){
       setFace(bands[e].face)
@@ -449,7 +436,7 @@ const caseSelectSnap=(e:any)=>{
     }
     const carousel = caseCar.current
     const buttons = Array.from(carousel.children);
-    let caseName = faceData[e].id.split("-").join(" ")
+    const caseName = faceData[e].id.split("-").join(" ")
     setCaseName(caseName)
     buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     if(faceData[e].face){
@@ -470,10 +457,10 @@ const sizeSelectSnap=(e:any)=>{
     const buttons = Array.from(carousel.children);
     if(e===0){
       setSizeName("42mm")
-      setSzNo(0)
+      // setSzNo(0)
     }else{
       setSizeName("46mm")
-      setSzNo(1)
+      // setSzNo(1)
     } 
     buttons[e].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
     // if(faceData[e].face){
@@ -499,7 +486,7 @@ const sizeSelectSnap=(e:any)=>{
       const szbtndiv = caseBtn.current;
       szDiv.innerText="Size"
       setTimeout(() => {
-        let currw = szbtndiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szbtndiv.animate(
           [
             { width:`${currw+20}px` },
@@ -518,9 +505,8 @@ const sizeSelectSnap=(e:any)=>{
   }
   const anCloseCase = ()=>{
     if(caseBtn.current &&imgcase.current){
-      const szDiv = caseRef.current;
       const szbtndiv = caseBtn.current;
-      let currw = szbtndiv.getBoundingClientRect().width
+      const currw = szbtndiv.getBoundingClientRect().width
       // szbtndiv.style.width=`0.48*${currw}`
       setTimeout(() => {
         szbtndiv.animate(
@@ -591,7 +577,7 @@ const sizeSelectSnap=(e:any)=>{
       const szbtndiv = szBtn.current;
       szDiv.innerText="Size"
       setTimeout(() => {
-        let currw = szbtndiv.getBoundingClientRect().width
+        const currw = szbtndiv.getBoundingClientRect().width
         szDiv.innerText = "42mm 46mm";
         szbtndiv.animate(
           [
@@ -651,8 +637,8 @@ const sizeSelectSnap=(e:any)=>{
       const hov= hoverIt.current
       const sz = window.innerWidth
       let currHeight = hero.getBoundingClientRect().height
-      let currSWidth = screen.width
-      let currSHeight = screen.height
+      const currSWidth = screen.width
+      const currSHeight = screen.height
       if(sz>1080){
         currHeight+=125
       }else{
@@ -741,7 +727,7 @@ const sizeSelectSnap=(e:any)=>{
             fill: 'forwards',
           }
         );
-        const curButtonAnimation = getActiveButton()?.animate(
+        getActiveButton()?.animate(
           [{width:"312px"}, { width:"500px"}],
           {
             duration: 300,
@@ -757,7 +743,7 @@ const sizeSelectSnap=(e:any)=>{
           if (activeButton) {
             activeButton.style.width = "500px";
           }
-          const idivAnimation = idiv.animate(
+          idiv.animate(
             [{opacity:0}, { opacity:1}],
             {
               duration: 100,
@@ -789,7 +775,7 @@ const sizeSelectSnap=(e:any)=>{
               fill: 'forwards',
             }
           );
-          const idivAnimation = idiv.animate(
+          idiv.animate(
             [{opacity:0}, { opacity:1}],
             {
               duration: 100,
